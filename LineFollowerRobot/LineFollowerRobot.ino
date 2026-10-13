@@ -39,21 +39,21 @@ void setup()
 
 void loop()
 {
-
+  // The Sensors are place so that the Line Just fits between them
   int rightIRSensorValue = digitalRead(IR_SENSOR_RIGHT);
   int leftIRSensorValue = digitalRead(IR_SENSOR_LEFT);
 
-  //If none of the sensors detects black line, then go straight
+  //The Sensors are not seeing any black so we are sure the sensors are aligned on either side of the line and so the car is aligned to the line
   if (rightIRSensorValue == LOW && leftIRSensorValue == LOW)
   {
     rotateMotor(MOTOR_SPEED, MOTOR_SPEED);
   }
-  //If right sensor detects black line, then turn right
+  //Only the Right Sensor Detects black so the car has swerved a bit too much to the left so we must turn right
   else if (rightIRSensorValue == HIGH && leftIRSensorValue == LOW )
   {
       rotateMotor(-MOTOR_SPEED, MOTOR_SPEED); 
   }
-  //If left sensor detects black line, then turn left  
+  //Only the Left Sensor Detects black so the car has swerved a bit too much to the right so we must turn left
   else if (rightIRSensorValue == LOW && leftIRSensorValue == HIGH )
   {
       rotateMotor(MOTOR_SPEED, -MOTOR_SPEED); 
