@@ -20,7 +20,9 @@ void setup()
   //Below line is important to change the frequency of PWM signal on pin D5 and D6
   //Because of this, motor runs in controlled manner (lower speed) at high PWM value.
   //This sets frequecny as 7812.5 hz.
-  TCCR0B = TCCR0B & B11111000 | B00000010 ;
+  
+  //Temporery Comment out for debugging
+  //TCCR0B = TCCR0B & B11111000 | B00000010 ;
   
   // put your setup code here, to run once:
   pinMode(enableRightMotor, OUTPUT);
