@@ -32,7 +32,6 @@ void setup()
   pinMode(leftMotorPin2, OUTPUT);
 
   
-  rotateMotor(0,0);   
 }
 
 
@@ -45,8 +44,8 @@ void loop()
   digitalWrite(leftMotorPin1,HIGH);
   digitalWrite(leftMotorPin2,LOW);  
 
-  analogWrite(enableRightMotor, abs(MotorSpeed));
-  analogWrite(enableLeftMotor, abs(MotorSpeed));   
+  analogWrite(enableRightMotor, abs(MOTOR_SPEED));
+  analogWrite(enableLeftMotor, abs(MOTOR_SPEED));   
 }
 
 
