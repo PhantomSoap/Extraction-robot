@@ -1,3 +1,12 @@
+#define IR_SENSOR_RIGHT 11
+#define IR_SENSOR_LEFT 12
+#define IR_SENSOR_MIDDLE 13
+#define US_SENSOR_ABOVE 3
+#define US_SENSOR_BELOW 2
+#define SERVO 4
+#define MOTOR_SPEED 180
+// Line following from the end of SEP to EXIT only.
+// No pickup, servo or ultrasonic code.
 // Robotics arena sketch, split into separate parts:
 //
 //   PHASE_PICKUP       -> runPickup()      (your pickup code goes here)
@@ -91,6 +100,13 @@ void setup()
   // IR sensors
   pinMode(IR_SENSOR_RIGHT, INPUT);
   pinMode(IR_SENSOR_LEFT, INPUT);
+  pinmode(IR_SENSOR_MIDDLE, INPUT);
+  pinmode(US_SENSOR_ABOVE, INPUT);
+  pinmode(US_SENSOR_BELOW, INPUT);
+  pinmode(SERVO, OUTPUT);
+  
+  rotateMotor(0,0);   
+}
   pinMode(IR_SENSOR_MIDDLE, INPUT);
 
   // Ultrasonic sensors
@@ -116,6 +132,21 @@ void setup()
 // =====================================================================
 void loop()
 {
+  // The Sensors are place so that the Line Just fits between them
+  int rightIRSensorValue = digitalRead(IR_SENSOR_RIGHT);
+  int middle = digitalRead(IR_SENSOR_MIDDLE);
+  int leftIRSensorValue = digitalRead(IR_SENSOR_LEFT);
+
+  int above_ultrasonic_sensor = digitalRead(US_SENSOR_ABOVE);
+  int below_ultrasonic_sensor = digitalRead(US_SENSOR_BELOW);
+
+  //The Sensors are not seeing any black so we are sure the sensors are aligned on either side of the line and so the car is aligned to the line
+  if (rightIRSensorValue == LOW && leftIRSensorValue == LOW)
+  {
+    rotateMotor(MOTOR_SPEED, MOTOR_SPEED);
+  }
+  //Only the Right Sensor Detects black so the car has swerved a bit too much to the left so we must turn right
+  else if (rightIRSensorValue == HIGH && leftIRSensorValue == LOW )
   switch (phase)
   {
     case PHASE_PICKUP:
